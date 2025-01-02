@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <h1>Peace Islamic School</h1>
+      <h1>Peace Islamic School : </h1>
     </>
   )
 }
