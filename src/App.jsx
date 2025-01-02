@@ -1,13 +1,9 @@
-
-
 function App() {
-  
-
   return (
     <>
-      <h1>Peace Islamic School : </h1>
+      <h1 className="text-primary">Peace Islamic School : </h1>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
