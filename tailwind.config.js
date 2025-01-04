@@ -20,7 +20,7 @@ export default {
     themes: [
       {
         mytheme: {
-          primary:colors.pink[600], // Tailwind's pink-600 // Your custom primary color
+          primary:"#E91F63",  // Your custom primary color
           primary_content:colors.pink[400], // Tailwind's pink-400 
           secondary: "#F43F5E", // Your custom secondary color
           accent: "#37CDBE", // Optional accent color
