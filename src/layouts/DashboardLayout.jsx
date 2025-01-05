@@ -1,13 +1,18 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { FaBars, FaHome, FaSignOutAlt } from "react-icons/fa";
+import { FaBars, FaHome, FaSignOutAlt, FaWpforms } from "react-icons/fa";
 import { GiTeacher } from "react-icons/gi";
 import { IoMdSchool } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
+import { PiChalkboardTeacher, PiStudentBold } from "react-icons/pi";
 
 import { PiExamFill } from "react-icons/pi";
 
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { GrCertificate } from "react-icons/gr";
+import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+import { TbHomeUp } from "react-icons/tb";
+import { BiLogOut } from "react-icons/bi";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -79,7 +84,7 @@ const DashboardLayout = () => {
                       : "hover:bg-white hover:text-gray-800"
                   }`}
                 >
-                  <FaHome className="text-lg" />
+                  <TbHomeUp className="text-lg" />
                   <span>Dashboard</span>
                 </Link>
               </li>
@@ -92,7 +97,7 @@ const DashboardLayout = () => {
                       : "hover:bg-white hover:text-gray-800"
                   }`}
                 >
-                  <GiTeacher className="text-lg" />
+                  <PiChalkboardTeacher className="text-lg" />
                   <span>Teacher</span>
                 </Link>
               </li>
@@ -105,8 +110,34 @@ const DashboardLayout = () => {
                       : "hover:bg-white hover:text-gray-800"
                   }`}
                 >
-                  <IoMdSchool className="text-lg" />
+                  <FaWpforms className="text-lg" />
                   <span>Admission Form</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/all-students"
+                  className={`flex items-center space-x-2 p-2 rounded-md ${
+                    isActive("/dashboard/all-students")
+                      ? "bg-white text-gray-800"
+                      : "hover:bg-white hover:text-gray-800"
+                  }`}
+                >
+                  <PiStudentBold  className="text-lg" />
+                  <span>All Students</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/all-certificates"
+                  className={`flex items-center space-x-2 p-2 rounded-md ${
+                    isActive("/dashboard/all-certificates")
+                      ? "bg-white text-gray-800"
+                      : "hover:bg-white hover:text-gray-800"
+                  }`}
+                >
+                  <GrCertificate className="text-lg" />
+                  <span>All Certificates</span>
                 </Link>
               </li>
 
@@ -119,7 +150,7 @@ const DashboardLayout = () => {
                       : "hover:bg-white hover:text-gray-800"
                   }`}
                 >
-                  <FaSignOutAlt className="text-lg" />
+                  <BiLogOut className="text-lg" />
                   <span>Logout</span>
                 </Link>
               </li>

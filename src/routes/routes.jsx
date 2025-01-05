@@ -7,6 +7,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Teacher from "../pages/Teacher/Teacher";
 import AdmissionForm from "../pages/AdmissionForm/AdmissionForm";
+import AllStudents from "../pages/AllStudents/AllStudents";
+import AllCertificates from "../pages/AllCertificates/AllCertificates";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +43,14 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/admission-form",
         element: <AdmissionForm />,
+      },
+      {
+        path: "/dashboard/all-students",
+        element: <AllStudents />,
+      },
+      {
+        path: "/dashboard/all-certificates",
+        element: <AllCertificates />,
       },
       
     ],
