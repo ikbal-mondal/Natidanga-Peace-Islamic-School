@@ -1,23 +1,18 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { FaBars, FaHome, FaSignOutAlt, FaWpforms } from "react-icons/fa";
-import { GiTeacher } from "react-icons/gi";
-import { IoMdSchool } from "react-icons/io";
+import { FaBars, FaWpforms } from "react-icons/fa";
+
 import { RxCross2 } from "react-icons/rx";
 import { PiChalkboardTeacher, PiStudentBold } from "react-icons/pi";
 
-import { PiExamFill } from "react-icons/pi";
-
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { GrCertificate } from "react-icons/gr";
-import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+
 import { TbHomeUp } from "react-icons/tb";
 import { BiLogOut } from "react-icons/bi";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedClass, setSelectedClass] = useState("Select Class");
   const location = useLocation();
 
   const toggleSidebar = () => {
@@ -26,19 +21,10 @@ const DashboardLayout = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const handleClassSelect = (className) => {
-    setSelectedClass(className);
-    setIsDropdownOpen(false);
-  };
-
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="bg-gradient-to-r from-purple-300 to-primary text-white p-4 flex justify-between items-center shadow-md">
+      <header className="bg-gradient-to-r z-10 from-purple-300 to-primary text-white p-4 flex justify-between items-center shadow-md">
         {/* Logo */}
         <div className="flex items-center space-x-1">
           <Link to="/" className="flex items-center">
@@ -54,11 +40,11 @@ const DashboardLayout = () => {
         </div>
         <div className="md:hidden">
           {isSidebarOpen ? (
-            <button className="btn btn-secondary" onClick={toggleSidebar}>
+            <button className="btn bg-white text-primary" onClick={toggleSidebar}>
               <RxCross2 />
             </button>
           ) : (
-            <button className="btn btn-secondary" onClick={toggleSidebar}>
+            <button className="btn bg-white text-primary" onClick={toggleSidebar}>
               <FaBars />
             </button>
           )}
@@ -123,7 +109,7 @@ const DashboardLayout = () => {
                       : "hover:bg-white hover:text-gray-800"
                   }`}
                 >
-                  <PiStudentBold  className="text-lg" />
+                  <PiStudentBold className="text-lg" />
                   <span>All Students</span>
                 </Link>
               </li>
@@ -154,7 +140,6 @@ const DashboardLayout = () => {
                   <span>Logout</span>
                 </Link>
               </li>
-              
             </ul>
           </nav>
         </aside>

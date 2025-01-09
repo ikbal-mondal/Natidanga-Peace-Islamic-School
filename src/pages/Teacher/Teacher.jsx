@@ -1,8 +1,10 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { FaPlus } from "react-icons/fa";
+import toast from "react-hot-toast";
 
-const TeacherComponent = () => {
+const Teacher = () => {
   const [teachers, setTeachers] = useState([]); // State to store teacher details
   const [showModal, setShowModal] = useState(false); // State for modal visibility
   const [formData, setFormData] = useState({
@@ -11,6 +13,17 @@ const TeacherComponent = () => {
     email: "",
   });
 
+  // Fetch teachers from the server
+  const fetchTeachers = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/teachers");
+      setTeachers(response.data); // Set the teacher list from the server response
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching teachers:", error);
+    }
+  };
+
   // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -18,25 +31,74 @@ const TeacherComponent = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setTeachers([...teachers, { ...formData, id: Date.now() }]);
-    setFormData({ name: "", phone: "", email: "" });
-    setShowModal(false);
+
+    try {
+      if (formData._id) {
+        // eslint-disable-next-line no-unused-vars
+        const { _id, ...formDataNew } = formData;
+        // If the formData has an ID, it's an update request on the server
+        await axios.put(
+          `http://localhost:5000/teachers/${formData._id}`,
+          formDataNew
+        );
+        fetchTeachers();
+        toast.success("Teacher updated successfully");
+      } else {
+        // post a teacher create or add new teacherData on the server.
+        const response = await axios.post(
+          "http://localhost:5000/teachers",
+          formData
+        );
+        toast.success("Teacher added successfully");
+        console.log("FromData", formData, "Response", response?.config?.data);
+        fetchTeachers();
+      }
+      // reset form data
+      setFormData({ name: "", phone: "", email: "" });
+      // close modal
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error adding/updating teacher:", error);
+    }
   };
 
   // Handle editing teacher details
-  const handleEdit = (id) => {
-    const teacherToEdit = teachers.find((teacher) => teacher.id === id);
-    setFormData(teacherToEdit);
+  const handleEdit = async (id) => {
+    // eslint-disable-next-line no-unused-vars
+    const teacherToEdit = teachers.find((teacher) => teacher?._id === id);
+    const response = await axios.get(`http://localhost:5000/teachers/${id}`);
+
+    fetchTeachers();
+    setFormData(response.data); // Include the ID for updating
+
+    // Open Modal
     setShowModal(true);
-    setTeachers(teachers.filter((teacher) => teacher.id !== id)); // Remove the old entry to replace
   };
 
   // Handle deleting teacher details
-  const handleDelete = (id) => {
-    setTeachers(teachers.filter((teacher) => teacher.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/teachers/${id}`);
+      setTeachers(teachers.filter((teacher) => teacher._id !== id));
+      toast.success("Teacher Delete Sucessfully");
+    } catch (error) {
+      console.error("Error deleting teacher:", error);
+    }
   };
+
+  const handleCancel = () => {
+    setFormData({ name: "", phone: "", email: "" });
+    // Modal Close
+    setShowModal(false);
+  };
+
+  // Fetch teachers when the component mounts
+  useEffect(() => {
+    fetchTeachers();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-10">
@@ -63,19 +125,19 @@ const TeacherComponent = () => {
           </thead>
           <tbody>
             {teachers.map((teacher) => (
-              <tr key={teacher.id} className="border-t">
+              <tr key={teacher._id} className="border-t">
                 <td className="py-2 px-4">{teacher.name}</td>
                 <td className="py-2 px-4">{teacher.phone}</td>
                 <td className="py-2 px-4">{teacher.email}</td>
                 <td className="py-2 px-4 flex justify-center gap-2">
                   <button
-                    onClick={() => handleEdit(teacher.id)}
+                    onClick={() => handleEdit(teacher?._id)}
                     className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
                   >
                     Edit
                   </button>
                   <button
-                    onClick={() => handleDelete(teacher.id)}
+                    onClick={() => handleDelete(teacher?._id)}
                     className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
                   >
                     Delete
@@ -154,7 +216,7 @@ const TeacherComponent = () => {
               <div className="flex justify-end gap-4">
                 <button
                   type="button"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => handleCancel()}
                   className="bg-gray-300 text-gray-700 py-2 px-4 rounded hover:bg-gray-400"
                 >
                   Cancel
@@ -163,7 +225,7 @@ const TeacherComponent = () => {
                   type="submit"
                   className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
                 >
-                  Save
+                  {formData?._id ? "Update" : "Add"}
                 </button>
               </div>
             </form>
@@ -174,4 +236,4 @@ const TeacherComponent = () => {
   );
 };
 
-export default TeacherComponent;
+export default Teacher;
