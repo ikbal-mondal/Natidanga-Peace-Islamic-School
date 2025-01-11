@@ -57,7 +57,7 @@ const DashboardLayout = () => {
         <aside
           className={`bg-primary text-white w-64 p-6 md:p-10 fixed bottom-0 top-20 md:top-0 left-0 transform ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } md:relative md:translate-x-0 transition-transform duration-200 ease-in-out z-50`}
+          } md:relative md:translate-x-0 transition-transform duration-200 ease-in-out z-50 `}
         >
           <nav>
             <ul className="space-y-4">

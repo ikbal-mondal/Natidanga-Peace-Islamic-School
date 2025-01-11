@@ -7,18 +7,14 @@ import toast from "react-hot-toast";
 const Teacher = () => {
   const [teachers, setTeachers] = useState([]); // State to store teacher details
   const [showModal, setShowModal] = useState(false); // State for modal visibility
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-  });
+  const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
+  const [deleteTeacherId, setDeleteTeacherId] = useState(null); // Track teacher to delete
 
   // Fetch teachers from the server
   const fetchTeachers = async () => {
     try {
       const response = await axios.get("http://localhost:5000/teachers");
-      setTeachers(response.data); // Set the teacher list from the server response
-      console.log(response.data);
+      setTeachers(response.data);
     } catch (error) {
       console.error("Error fetching teachers:", error);
     }
@@ -31,68 +27,69 @@ const Teacher = () => {
   };
 
   // Handle form submission
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       if (formData._id) {
         // eslint-disable-next-line no-unused-vars
         const { _id, ...formDataNew } = formData;
-        // If the formData has an ID, it's an update request on the server
         await axios.put(
           `http://localhost:5000/teachers/${formData._id}`,
           formDataNew
         );
-        fetchTeachers();
         toast.success("Teacher updated successfully");
       } else {
-        // post a teacher create or add new teacherData on the server.
-        const response = await axios.post(
-          "http://localhost:5000/teachers",
-          formData
-        );
-        toast.success("Teacher added successfully");
-        console.log("FromData", formData, "Response", response?.config?.data);
-        fetchTeachers();
+        await axios.post("http://localhost:5000/teachers", formData);
+        toast.success("Teacher added successfully", {
+          position: "top-center",
+          duration: 2000,
+          style: {
+            marginTop: "20vh", // 10% of the viewport height
+          },
+        });
       }
-      // reset form data
+      fetchTeachers();
       setFormData({ name: "", phone: "", email: "" });
-      // close modal
       setShowModal(false);
     } catch (error) {
       console.error("Error adding/updating teacher:", error);
     }
   };
 
-  // Handle editing teacher details
+  // Handle edit
   const handleEdit = async (id) => {
-    // eslint-disable-next-line no-unused-vars
-    const teacherToEdit = teachers.find((teacher) => teacher?._id === id);
     const response = await axios.get(`http://localhost:5000/teachers/${id}`);
-
-    fetchTeachers();
-    setFormData(response.data); // Include the ID for updating
-
-    // Open Modal
+    setFormData(response.data);
     setShowModal(true);
-  };
-
-  // Handle deleting teacher details
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/teachers/${id}`);
-      setTeachers(teachers.filter((teacher) => teacher._id !== id));
-      toast.success("Teacher Delete Sucessfully");
-    } catch (error) {
-      console.error("Error deleting teacher:", error);
-    }
   };
 
   const handleCancel = () => {
     setFormData({ name: "", phone: "", email: "" });
     // Modal Close
     setShowModal(false);
+  };
+
+  // Handle delete confirmation
+  const confirmDelete = (id) => {
+    setDeleteTeacherId(id); // Set the teacher to delete
+  };
+
+  // Handle deleting teacher
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/teachers/${deleteTeacherId}`);
+      setTeachers(
+        teachers.filter((teacher) => teacher._id !== deleteTeacherId)
+      );
+      toast.success("Teacher deleted successfully");
+      setDeleteTeacherId(null); // Clear the state
+    } catch (error) {
+      console.error("Error deleting teacher:", error);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteTeacherId(null); // Close confirmation modal
   };
 
   // Fetch teachers when the component mounts
@@ -103,7 +100,7 @@ const Teacher = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-10">
       {/* Add Teacher Button */}
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-start md:justify-end mb-4">
         <button
           onClick={() => setShowModal(true)}
           className="bg-pink-500 text-white py-2 px-4 rounded shadow hover:bg-primary flex items-center gap-2"
@@ -111,6 +108,15 @@ const Teacher = () => {
           <FaPlus className="text-white" /> Add Teacher
         </button>
       </div>
+
+      {/* Heading for Teacher Table */}
+      
+      <h2 className="relative text-xl md:text-2xl font-bold text-gray-800 mb-4 group inline-block">
+        Teacher List
+        {/* Border for hover animation */}
+        <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gray-800 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+      </h2>
+     
 
       {/* Teacher Table */}
       <div className="overflow-x-auto">
@@ -131,13 +137,13 @@ const Teacher = () => {
                 <td className="py-2 px-4">{teacher.email}</td>
                 <td className="py-2 px-4 flex justify-center gap-2">
                   <button
-                    onClick={() => handleEdit(teacher?._id)}
+                    onClick={() => handleEdit(teacher._id)}
                     className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
                   >
                     Edit
                   </button>
                   <button
-                    onClick={() => handleDelete(teacher?._id)}
+                    onClick={() => confirmDelete(teacher._id)}
                     className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
                   >
                     Delete
@@ -156,11 +162,13 @@ const Teacher = () => {
         </table>
       </div>
 
-      {/* Modal */}
+      {/* Add/Edit Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <div className="bg-white rounded shadow-lg p-6 w-full max-w-md">
-            <h2 className="text-xl font-semibold mb-4">Add Teacher</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              {formData._id ? "Edit Teacher" : "Add Teacher"}
+            </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
@@ -225,10 +233,36 @@ const Teacher = () => {
                   type="submit"
                   className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
                 >
-                  {formData?._id ? "Update" : "Add"}
+                  {formData._id ? "Update" : "Add"}
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteTeacherId && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded shadow-lg p-6 w-full max-w-sm text-center">
+            <h2 className="text-xl font-semibold mb-4">Confirm Delete</h2>
+            <p className="text-gray-700 mb-6">
+              Are you sure you want to delete this teacher?
+            </p>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleCancelDelete}
+                className="bg-gray-300 text-gray-700 py-2 px-4 rounded hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}
