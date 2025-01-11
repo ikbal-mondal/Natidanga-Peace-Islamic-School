@@ -30,7 +30,7 @@ function Login() {
 
     // Redirect to dashboard (replace this with actual login API logic)
     console.log("Form Data Submitted:", formData);
-    navigate("/");
+    navigate("/dashboard");
   };
 
   return (
