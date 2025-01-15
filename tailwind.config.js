@@ -10,7 +10,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: colors.sky[500],  // Your custom primary color
+        focusInput: colors.sky[200], // Add focusInput to Tailwind's color palette
+      },
+    },
   },
   plugins: [
     // eslint-disable-next-line no-undef
@@ -20,8 +25,9 @@ export default {
     themes: [
       {
         mytheme: {
-          primary:"#E91F63",  // Your custom primary color
+          primary: colors.sky[500],  // Your custom primary color
           primary_content:colors.pink[400], // Tailwind's pink-400 
+          
           secondary: "#F43F5E", // Your custom secondary color
           accent: "#37CDBE", // Optional accent color
           neutral: "#3D4451", // Optional neutral color

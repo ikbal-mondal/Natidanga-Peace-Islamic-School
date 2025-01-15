@@ -88,6 +88,7 @@ const Teacher = () => {
     }
   };
 
+  // Handle cancel deleting teacher
   const handleCancelDelete = () => {
     setDeleteTeacherId(null); // Close confirmation modal
   };
@@ -103,7 +104,7 @@ const Teacher = () => {
       <div className="flex justify-start md:justify-end mb-4">
         <button
           onClick={() => setShowModal(true)}
-          className="bg-pink-500 text-white py-2 px-4 rounded shadow hover:bg-primary flex items-center gap-2"
+          className="bg-primary text-white py-2 px-4 rounded shadow hover:bg-primary flex items-center gap-2"
         >
           <FaPlus className="text-white" /> Add Teacher
         </button>
@@ -183,7 +184,7 @@ const Teacher = () => {
                   type="text"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full border border-gray-300 rounded py-2 px-3 focus:ring focus:ring-blue-200"
+                  className="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
                   required
                 />
               </div>
@@ -200,7 +201,7 @@ const Teacher = () => {
                   type="text"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full border border-gray-300 rounded py-2 px-3 focus:ring focus:ring-blue-200"
+                  className="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
                   required
                 />
               </div>
@@ -217,7 +218,7 @@ const Teacher = () => {
                   type="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full border border-gray-300 rounded py-2 px-3 focus:ring focus:ring-blue-200"
+                  className="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
                   required
                 />
               </div>

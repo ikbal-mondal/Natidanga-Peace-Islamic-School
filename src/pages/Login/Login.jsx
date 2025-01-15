@@ -69,7 +69,7 @@ function Login() {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="Enter Your Email"
-                  className="py-3 px-2 mb-5 w-full border border-pink-400"
+                  className="py-3 px-2 mb-5 w-full border focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
                 />
 
                 <label htmlFor="password" className="my-2 block">
@@ -82,7 +82,7 @@ function Login() {
                   value={formData.password}
                   onChange={handleInputChange}
                   placeholder="Enter Your Password"
-                  className="py-3 px-2 w-full border border-pink-400"
+                  className="py-3 px-2 w-full border focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
                 />
 
                 <div className="mt-10">
