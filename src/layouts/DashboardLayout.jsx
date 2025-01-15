@@ -24,7 +24,7 @@ const DashboardLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="bg-gradient-to-r z-10 from-purple-300 to-primary text-white p-4 flex justify-between items-center shadow-md">
+      <header className="bg-gradient-to-r z-10 from-orange-100 to-primary text-white p-4 flex justify-between items-center shadow-md">
         {/* Logo */}
         <div className="flex items-center space-x-1">
           <Link to="/" className="flex items-center">
@@ -33,7 +33,7 @@ const DashboardLayout = () => {
               alt="Natidanga School Logo"
               className="h-12 w-12 object-cover" // Adjust height and width as needed
             />
-            <span className="text-white text-xl font-semibold ml-2">
+            <span className="text-primary text-xl font-semibold ml-2">
               Natidanga School
             </span>
           </Link>
@@ -145,7 +145,7 @@ const DashboardLayout = () => {
         </aside>
 
         {/* Main Content Area */}
-        <main className="flex-1 p-6 md:p-20 bg-gray-100">
+        <main className="flex-1 p-6 md:p-8 bg-gray-100">
           <Outlet />
         </main>
       </div>

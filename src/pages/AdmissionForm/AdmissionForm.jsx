@@ -36,7 +36,14 @@ const AdmissionForm = () => {
       console.log("Response from server", response);
 
       // Handle successful submission
-      toast.success("Form Submitted Successfully!");
+      toast.success("Teacher added successfully", {
+        position: "top-center",
+        duration: 2000,
+        style: {
+          marginTop: "10vh", // 10% of the viewport height
+          marginLeft: "70px",
+        },
+      });
       console.log("Response from server:", response.data);
 
       // Reset the form fields
@@ -81,7 +88,7 @@ const AdmissionForm = () => {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
                 required
               />
             </div>
@@ -99,7 +106,7 @@ const AdmissionForm = () => {
                 name="admissionYear"
                 value={formData.admissionYear}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
                 required
               >
                 <option value="" disabled>
@@ -126,7 +133,7 @@ const AdmissionForm = () => {
               name="fatherName"
               value={formData.fatherName}
               onChange={handleInputChange}
-              className="mt-1  w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1  w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
               required
             />
           </div>
@@ -145,7 +152,7 @@ const AdmissionForm = () => {
               name="dateOfBirth"
               value={formData.dateOfBirth}
               onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
               required
             />
           </div>
@@ -164,7 +171,7 @@ const AdmissionForm = () => {
               name="aadharNumber"
               value={formData.aadharNumber}
               onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
               required
             />
           </div>
@@ -184,7 +191,7 @@ const AdmissionForm = () => {
                 name="village"
                 value={formData.village}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
                 required
               />
             </div>
@@ -201,7 +208,7 @@ const AdmissionForm = () => {
                 name="post"
                 value={formData.post}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
                 required
               />
             </div>
@@ -218,7 +225,7 @@ const AdmissionForm = () => {
                 name="thana"
                 value={formData.thana}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
                 required
               />
             </div>
@@ -235,7 +242,7 @@ const AdmissionForm = () => {
                 name="pincode"
                 value={formData.pincode}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
                 required
               />
             </div>
@@ -255,7 +262,7 @@ const AdmissionForm = () => {
               name="class"
               value={formData.class}
               onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
               required
             />
           </div>
@@ -274,7 +281,7 @@ const AdmissionForm = () => {
               name="admissionFees"
               value={formData.admissionFees}
               onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
               required
             />
           </div>
@@ -293,7 +300,7 @@ const AdmissionForm = () => {
               name="admissionDate"
               value={formData.admissionDate}
               onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
               required
             />
           </div>

@@ -14,7 +14,7 @@ const Dashboard = () => {
           id="yearFilter"
           type="text"
           placeholder="2023 to 2050"
-          className="py-2 px-4 border border-red-300 rounded shadow-sm focus:ring focus:ring-red-200"
+          className="py-2 px-4 border border-focusInput rounded shadow-sm focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
         />
       </div>
 
