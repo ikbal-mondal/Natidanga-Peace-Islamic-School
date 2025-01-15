@@ -81,7 +81,14 @@ const Teacher = () => {
       setTeachers(
         teachers.filter((teacher) => teacher._id !== deleteTeacherId)
       );
-      toast.success("Teacher deleted successfully");
+      toast.success("Teacher deleted successfully", {
+        position: "top-center",
+        duration: 2000,
+        style: {
+          marginTop: "10vh", // 10% of the viewport height
+          marginLeft: "70px",
+        },
+      });
       setDeleteTeacherId(null); // Clear the state
     } catch (error) {
       console.error("Error deleting teacher:", error);

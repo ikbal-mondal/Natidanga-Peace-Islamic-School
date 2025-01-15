@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-unused-vars
+import axios from "axios";
 import React, { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 
 const AllStudents = () => {
@@ -10,7 +12,9 @@ const AllStudents = () => {
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-   const [deleteAdmissionId, setDeleteAdmissionId] = useState(null); // Track teacher to delete
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const [selectedStudentId, setSelectedStudentId] = useState(null); // Selected student ID
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,7 +38,33 @@ const AllStudents = () => {
     }
   };
 
- 
+  // Handle delete confirmation
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/admission-form/${selectedStudentId}`);
+      console.log(response);
+      if (!response.data.acknowledged) {
+        toast.error("Faild to delete student")
+      }
+      // Remove the deleted student from the list
+      setStudents(students.filter((student) => student._id !== selectedStudentId));
+      setFilteredStudents(
+        filteredStudents.filter((student) => student._id !== selectedStudentId)
+      );
+      setIsModalOpen(false); // Close modal
+      setSelectedStudentId(null); // Reset selected ID
+      toast.success("Student Deleted Sucessfully", {
+        position: "top-center",
+        duration: 2000,
+        style: {
+          marginTop: "10vh", // 10% of the viewport height
+          marginLeft: "70px",
+        },
+      })
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 
   // Handle search and filter logic
   const handleSearchAndFilters = () => {
@@ -78,11 +108,6 @@ const AllStudents = () => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
-  };
-
-  // Handle delete confirmation
-  const confirmDelete = (id) => {
-    setDeleteAdmissionId(id); // Set the teacher to delete
   };
 
   useEffect(() => {
@@ -167,8 +192,13 @@ const AllStudents = () => {
                       <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
                         View Details
                       </button>
-                      <button 
-                      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                      <button
+                        onClick={() => {
+                          setIsModalOpen(true);
+                          setSelectedStudentId(student._id);
+                        }}
+                        className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                      >
                         Delete
                       </button>
                     </td>
@@ -254,8 +284,37 @@ const AllStudents = () => {
           </h3>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm text-center">
+            <h2 className="text-xl font-semibold text-gray-700">
+              Confirm Deletion
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Are you sure you want to delete this student?
+            </p>
+            <div className="mt-6 flex justify-center gap-4">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default AllStudents;
+
