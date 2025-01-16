@@ -1,8 +1,9 @@
 // eslint-disable-next-line no-unused-vars
-import axios from "axios";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import toast from "react-hot-toast";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
+import { Link } from "react-router-dom";
 
 const AllStudents = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -41,13 +42,17 @@ const AllStudents = () => {
   // Handle delete confirmation
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(`http://localhost:5000/admission-form/${selectedStudentId}`);
+      const response = await axios.delete(
+        `http://localhost:5000/admission-form/${selectedStudentId}`
+      );
       console.log(response);
       if (!response.data.acknowledged) {
-        toast.error("Faild to delete student")
+        toast.error("Faild to delete student");
       }
       // Remove the deleted student from the list
-      setStudents(students.filter((student) => student._id !== selectedStudentId));
+      setStudents(
+        students.filter((student) => student._id !== selectedStudentId)
+      );
       setFilteredStudents(
         filteredStudents.filter((student) => student._id !== selectedStudentId)
       );
@@ -60,7 +65,7 @@ const AllStudents = () => {
           marginTop: "10vh", // 10% of the viewport height
           marginLeft: "70px",
         },
-      })
+      });
     } catch (err) {
       alert(err.message);
     }
@@ -189,9 +194,12 @@ const AllStudents = () => {
                     <td className="p-4">{student.roll ?? "N/A"}</td>
                     <td className="p-4">{student.dues ?? "N/A"}</td>
                     <td className="p-4 text-right flex justify-end gap-2">
-                      <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                      <Link
+                        to={`/dashboard/all-students/${student._id}`}
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                      >
                         View Details
-                      </button>
+                      </Link>
                       <button
                         onClick={() => {
                           setIsModalOpen(true);
@@ -209,7 +217,7 @@ const AllStudents = () => {
 
             {/* Pagination */}
             <div className="mt-4 flex justify-center items-center gap-2">
-            <div
+              <div
                 className={`px-4 py-2 rounded-lg flex items-center justify-center gap-2 ${
                   currentPage === 1
                     ? "bg-gray-300"
@@ -267,14 +275,13 @@ const AllStudents = () => {
                 >
                   Next
                   <GrFormNextLink
-                  className={`text-lg mt-[2px] ${
-                    currentPage === totalPages
-                      ? "text-gray-400"
-                      : "text-gray-700"
-                  }`}
-                />
+                    className={`text-lg mt-[2px] ${
+                      currentPage === totalPages
+                        ? "text-gray-400"
+                        : "text-gray-700"
+                    }`}
+                  />
                 </button>
-                
               </div>
             </div>
           </>
@@ -317,4 +324,3 @@ const AllStudents = () => {
 };
 
 export default AllStudents;
-

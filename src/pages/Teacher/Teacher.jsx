@@ -37,7 +37,13 @@ const Teacher = () => {
           `http://localhost:5000/teachers/${formData._id}`,
           formDataNew
         );
-        toast.success("Teacher updated successfully");
+        toast.success("Teacher updated successfully", {
+          position: "top-center",
+          duration: 2000,
+          style: {
+            marginTop: "20vh", // 10% of the viewport height
+          },
+        });
       } else {
         await axios.post("http://localhost:5000/teachers", formData);
         toast.success("Teacher added successfully", {

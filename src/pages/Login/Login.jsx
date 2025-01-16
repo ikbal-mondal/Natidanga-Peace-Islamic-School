@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const imgUrl =
-    "https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+    "https://images.pexels.com/photos/29676866/pexels-photo-29676866/free-photo-of-majestic-view-of-prophet-s-mosque-at-dusk.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
   // State for form inputs
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -46,7 +46,7 @@ function Login() {
             }}
             className="flex justify-center items-center bg-[rgb(0,0,0)]"
           >
-            <div className="text-pink-500 bg-[rgba(0,0,0,0.5)] mx-16 p-5">
+            <div className="text-sky-500 bg-[rgba(0,0,0,0.5)] mx-16 p-5">
               <h1 className="text-3xl font-raleWay font-thin text-justify">
                 Please, Login for going to the Dashboard and explore more
                 information.
