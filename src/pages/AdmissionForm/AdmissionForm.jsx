@@ -4,6 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const AdmissionForm = () => {
+  const classList = ["One", "Two", "Three", "Maqtab"];
   const [formData, setFormData] = useState({
     fullName: "",
     fatherName: "",
@@ -36,7 +37,7 @@ const AdmissionForm = () => {
       console.log("Response from server", response);
 
       // Handle successful submission
-      toast.success("Teacher added successfully", {
+      toast.success("Admission form added successfully", {
         position: "top-center",
         duration: 2000,
         style: {
@@ -256,15 +257,23 @@ const AdmissionForm = () => {
             >
               Class
             </label>
-            <input
-              type="text"
+            <select
               id="class"
               name="class"
               value={formData.class}
               onChange={handleInputChange}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
               required
-            />
+            >
+              <option value="" disabled>
+                Select a class
+              </option>
+              {classList.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Admission Fees */}
