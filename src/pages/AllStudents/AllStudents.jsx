@@ -191,7 +191,7 @@ const AllStudents = () => {
                   <tr key={index} className="border-b last:border-none">
                     <td className="p-4">{student.fullName}</td>
                     <td className="p-4">{student.class}</td>
-                    <td className="p-4">{student.roll ?? "N/A"}</td>
+                    <td className="p-4">{student.rollNumber ?? "N/A"}</td>
                     <td className="p-4">{student.dues ?? "N/A"}</td>
                     <td className="p-4 text-right flex justify-end gap-2">
                       <Link

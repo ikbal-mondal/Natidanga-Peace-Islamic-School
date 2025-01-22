@@ -12,7 +12,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: colors.sky[500],  // Your custom primary color
+        primary: "#0077B5",  // Your custom primary color
         focusInput: colors.sky[200], // Add focusInput to Tailwind's color palette
       },
     },
@@ -25,7 +25,7 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: colors.sky[500],  // Your custom primary color
+          primary: "#0077B5",  // Your custom primary color
           primary_content:colors.pink[400], // Tailwind's pink-400 
           
           secondary: "#F43F5E", // Your custom secondary color

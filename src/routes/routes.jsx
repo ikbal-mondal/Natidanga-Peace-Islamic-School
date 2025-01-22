@@ -10,6 +10,7 @@ import AdmissionForm from "../pages/AdmissionForm/AdmissionForm";
 import AllStudents from "../pages/AllStudents/AllStudents";
 import AllCertificates from "../pages/AllCertificates/AllCertificates";
 import SingleStudent from "../pages/AllStudents/SingleStudent";
+import StudentResult from "../pages/AllStudents/StudentResult";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/all-students/:id",
         element: <SingleStudent />,
+      },
+      {
+        path: "/dashboard/all-students/student-results/:id",
+        element: <StudentResult />,
       },
       {
         path: "/dashboard/all-certificates",
