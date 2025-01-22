@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 const StudentResult = () => {
   const { id } = useParams(); // Student ID from the route
   const [student, setStudent] = useState(null); // Student details
-  const [studentReport, setStudentReport] = useState(null); // Student details
+  const [studentReport, setStudentReport] = useState([]); // Student details
   const [reportType, setReportType] = useState(""); // Selected report type
   const [results, setResults] = useState({}); // Results for subjects
   const [loading, setLoading] = useState(false); // Loading state
@@ -26,16 +26,25 @@ const StudentResult = () => {
     }
   };
 
-  // Fetch student report
-  const fetchStudentReport = async ()=>{
-    const response = await axios.get(`http://localhost:5000/student-results/${id}`);
-    setStudentReport(response.data);
-    console.log("Student Report",response.data)
+  // Fetch specific type report
+  const fetchTypeReport = async (type)=>{
+    // api example : GET http://localhost:5000/student-results/report?id=2&reportType="halfYearReport"
+    const response = await axios.get(`http://localhost:5000/student-results/report?id=${id}&reportType=${type}`);
+    console.log("Repoet type",response.data)
   }
+
+  // Fetch student all report
+  const fetchStudentReportAll = async ()=>{
+    const response = await axios.get(`http://localhost:5000/student-results-all/${id}`);
+    setStudentReport(response.data);
+    console.log("Student Report all",response.data)
+  }
+  const allReportType = studentReport.map(report => report.reportType);
 
   useEffect(() => {
     fetchStudent();
-    fetchStudentReport();
+    fetchTypeReport("Half Year Report");
+    fetchStudentReportAll();
   }, [id]); // Fetches student details when `id` changes
 
   // Handle subject result input
@@ -163,14 +172,14 @@ const StudentResult = () => {
                type="submit"
               // className=" mt-3 px-6 py-2 rounded-lg hover:bg-blue-600"
               className={`mt-3  px-6 py-2 rounded-lg ${
-                (studentReport._id && studentReport.reportType===reportType) ?
+                (allReportType.includes(reportType)) ?
                    "text-gray-600 bg-gray-200 cursor-not-allowed"
                   : "bg-blue-500 text-white "
               }`}
-              disabled={studentReport._id && studentReport.reportType===reportType}
+              disabled={allReportType.includes(reportType)}
             >
               {
-                studentReport._id && studentReport.reportType===reportType ? "Already report added" :" Add Report"
+                allReportType.includes(reportType) ? "Already report added" :" Add Report"
               }
             </button>
           </div>

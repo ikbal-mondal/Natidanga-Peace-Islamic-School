@@ -84,9 +84,9 @@ const AllStudents = () => {
         student.roll?.toString().includes(query);
 
       const matchesClass =
-        !selectedClass || student.class?.toLowerCase() === selectedClass;
+        !selectedClass || student.class?.toLowerCase().includes(selectedClass);
       const matchesYear =
-        !selectedYear || student.admissionYear?.toString() === selectedYear;
+        !selectedYear || student.admissionYear?.toString().includes(selectedYear);
 
       return matchesSearchQuery && matchesClass && matchesYear;
     });
@@ -146,7 +146,7 @@ const AllStudents = () => {
           <label className="text-gray-600 font-medium">Filter Class:</label>
           <input
             type="text"
-            placeholder="One, Two, Three, Maktab"
+            placeholder="One, Two, Three, Maqtab"
             className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-focusInput focus:border-focusInput"
             value={filterClass}
             onChange={(e) => setFilterClass(e.target.value)}

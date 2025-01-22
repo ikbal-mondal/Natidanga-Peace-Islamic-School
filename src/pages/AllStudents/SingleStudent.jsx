@@ -70,6 +70,7 @@ const SingleStudent = () => {
   };
 
   const handleEdit = () => {
+    
     setEditedStudent(student);
     setIsModalOpen(true);
   };
