@@ -104,6 +104,7 @@ const StudentResult = () => {
     "আরবী",
     "দুয়া",
     "হাদীস",
+    "আকাইদ",
     "কর্মশিক্ষা",
   ];
   const filteredSubjects =
