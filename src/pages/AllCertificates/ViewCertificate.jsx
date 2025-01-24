@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 
 const ViewCertificate = () => {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    documentTitle: "Certificate",
+    contentRef: componentRef,
+  });
   return (
     <div className="flex flex-col justify-center items-center p-4 md:p-8 bg-gray-50 min-h-screen">
-      <div className="flex flex-col w-full max-w-5xl bg-white shadow-lg rounded-lg p-4 md:p-8">
+      <div
+        ref={componentRef}
+        className="flex flex-col w-full max-w-5xl bg-white shadow-lg rounded-lg p-4 md:p-8"
+      >
         <div className="border border-base p-4 md:p-8">
           <h1 className="text-base md:text-lg font-bold text-center">
             <div className="mb-3">
@@ -52,9 +61,10 @@ const ViewCertificate = () => {
                   <th className="border border-black px-2 py-1">গণিত</th>
                   <th className="border border-black px-2 py-1">কর্মশিক্ষা</th>
                   <th className="border border-black px-2 py-1">মোট নম্বর</th>
-                  <th className="border-black mt-3 px-2 py-1">গড় নম্বর</th>
+                  <th className="border border-black px-2 py-1">গড় নম্বর</th>
                 </tr>
               </thead>
+             
               <tbody>
                 <tr>
                   <td className="border border-black px-2 py-1">পূর্ণমান</td>
@@ -67,8 +77,11 @@ const ViewCertificate = () => {
                   <td className="border border-black px-2 py-1">100</td>
                   <td className="border border-black px-2 py-1">50</td>
                   <td className="border border-black px-2 py-1">850</td>
-                  {/* <td className="border border-black px-2 py-1">গড় নম্বর</td> */}
+                  <td className="border border-black px-2 py-1">85</td>
                 </tr>
+              </tbody>
+            
+              <tbody>
                 <tr>
                   <td className="border border-black px-2 py-1">
                     অর্ধ বার্ষিক পরীক্ষা
@@ -84,6 +97,9 @@ const ViewCertificate = () => {
                   <td className="border border-black px-2 py-1"></td>
                   <td className="border border-black px-2 py-1"></td>
                 </tr>
+              </tbody>
+            
+              <tbody>
                 <tr>
                   <td className="border border-black px-2 py-1">
                     বার্ষিক পরীক্ষা
@@ -100,6 +116,7 @@ const ViewCertificate = () => {
                   <td className="border border-black px-2 py-1"></td>
                 </tr>
               </tbody>
+           
             </table>
           </div>
 
@@ -119,7 +136,10 @@ const ViewCertificate = () => {
       </div>
 
       <div className="mt-4 mb-32">
-        <button className="px-4 py-2 text-white bg-primary hover:bg-white border border-primary hover:border-primary hover:text-primary transition duration-300">
+        <button
+          onClick={handlePrint}
+          className="px-4 py-2 text-white bg-primary hover:bg-white border border-primary hover:border-primary hover:text-primary transition duration-300"
+        >
           Print Certificate
         </button>
       </div>
