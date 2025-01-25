@@ -26,14 +26,7 @@ const StudentResult = () => {
     }
   };
 
-  // Fetch specific type report
-  const fetchTypeReport = async (type)=>{
-    // api example : GET http://localhost:5000/student-results/report?id=2&reportType="halfYearReport"
-    const response = await axios.get(`http://localhost:5000/student-results/report?id=${id}&reportType=${type}`);
-    console.log("Repoet type",response.data)
-  }
-
-  // Fetch student all report
+  
   const fetchStudentReportAll = async ()=>{
     const response = await axios.get(`http://localhost:5000/student-results-all/${id}`);
     setStudentReport(response.data);
@@ -43,7 +36,6 @@ const StudentResult = () => {
 
   useEffect(() => {
     fetchStudent();
-    fetchTypeReport("Half Year Report");
     fetchStudentReportAll();
   }, [id]); // Fetches student details when `id` changes
 
@@ -73,7 +65,7 @@ const StudentResult = () => {
         results,
       };
       await axios.post("http://localhost:5000/student-results", payload);
-      fetchStudentReport();
+      fetchStudentReportAll();
       setResults({});
       toast.success("Result report added successfully", {
         position: "top-center",
