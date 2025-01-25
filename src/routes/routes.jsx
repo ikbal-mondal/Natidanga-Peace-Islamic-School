@@ -11,6 +11,7 @@ import AllStudents from "../pages/AllStudents/AllStudents";
 import AllCertificates from "../pages/AllCertificates/AllCertificates";
 import SingleStudent from "../pages/AllStudents/SingleStudent";
 import StudentResult from "../pages/AllStudents/StudentResult";
+import ViewCertificate from './../pages/AllCertificates/ViewCertificate';
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/all-students/student-results/:id",
         element: <StudentResult />,
+      },
+      {
+        path: "/dashboard/all-students/view-certificate/:id",
+        element: <ViewCertificate />,
       },
       {
         path: "/dashboard/all-certificates",

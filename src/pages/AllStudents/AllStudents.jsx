@@ -196,7 +196,7 @@ const AllStudents = () => {
                     <td className="p-4 text-right flex justify-end gap-2">
                       <Link
                         to={`/dashboard/all-students/${student._id}`}
-                        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                        className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
                       >
                         View Details
                       </Link>
