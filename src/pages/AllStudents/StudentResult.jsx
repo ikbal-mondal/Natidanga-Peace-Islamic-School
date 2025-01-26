@@ -67,7 +67,7 @@ const StudentResult = () => {
       await axios.post("http://localhost:5000/student-results", payload);
       fetchStudentReportAll();
       setResults({});
-      toast.success("Result report added successfully", {
+      toast.success(`${reportType} report added successfully`, {
         position: "top-center",
         duration: 2000,
         style: {
