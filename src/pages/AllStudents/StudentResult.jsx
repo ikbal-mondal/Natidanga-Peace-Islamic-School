@@ -26,22 +26,33 @@ const StudentResult = () => {
     }
   };
 
-  
-  const fetchStudentReportAll = async ()=>{
-    const response = await axios.get(`http://localhost:5000/student-results-all/${id}`);
+  const fetchStudentReportAll = async () => {
+    const response = await axios.get(
+      `http://localhost:5000/student-results-all/${id}`
+    );
     setStudentReport(response.data);
-    console.log("Student Report all",response.data)
-  }
-  const allReportType = studentReport.map(report => report.reportType);
+    console.log("Student Report all", response.data);
+  };
+  const allReportType = studentReport.map((report) => report.reportType);
 
   useEffect(() => {
     fetchStudent();
     fetchStudentReportAll();
   }, [id]); // Fetches student details when `id` changes
 
+ 
+    
+
+
   // Handle subject result input
   const handleInputChange = (e, subject) => {
-    setResults((prev) => ({ ...prev, [subject]: e.target.value }));
+    const value = parseFloat(e.target.value);
+    if ((value >= 0 && value <= 50) || isNaN(value)) {
+      setResults((prev) => ({ ...prev, [subject]: e.target.value}));
+    } else {
+      toast.error("Marks should be between 0 and 50");
+    }
+    // setResults((prev) => ({ ...prev, [subject]: e.target.value }));
   };
 
   // Handle report submission
@@ -64,6 +75,7 @@ const StudentResult = () => {
         reportType,
         results,
       };
+      console.log(results);
       await axios.post("http://localhost:5000/student-results", payload);
       fetchStudentReportAll();
       setResults({});
@@ -106,6 +118,13 @@ const StudentResult = () => {
         )
       : allSubjects;
 
+  const filteredSubjectsByReportType = filteredSubjects.filter((subject) => {
+    if (reportType === "Half Year Report") {
+      return subject != "কর্মশিক্ষা";
+    }
+    return subject;
+  });
+
   return (
     <div className="p-8 max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
       {/* Top Section */}
@@ -144,36 +163,36 @@ const StudentResult = () => {
       <div className="mb-8">
         <h3 className="text-xl font-bold my-4">Enter Results</h3>
         <form onSubmit={handleSubmit}>
-          {filteredSubjects.map((subject) => (
+          {filteredSubjectsByReportType.map((subject) => (
             <div key={subject} className="mb-4">
               <label className="block text-gray-700 font-medium mb-1">
                 {subject}
               </label>
               <input
-                type="number"
+                type="text"
                 value={results[subject] || ""}
                 onChange={(e) => handleInputChange(e, subject)}
                 placeholder={`Enter marks for ${subject}`}
-                required
                 className="w-full px-4 py-2 border rounded-lg"
+                required
               />
             </div>
           ))}
           {/* Submit Button */}
           <div className="flex justify-end">
             <button
-               type="submit"
+              type="submit"
               // className=" mt-3 px-6 py-2 rounded-lg hover:bg-blue-600"
               className={`mt-3  px-6 py-2 rounded-lg ${
-                (allReportType.includes(reportType)) ?
-                   "text-gray-600 bg-gray-200 cursor-not-allowed"
+                allReportType.includes(reportType)
+                  ? "text-gray-600 bg-gray-200 cursor-not-allowed"
                   : "bg-blue-500 text-white "
               }`}
               disabled={allReportType.includes(reportType)}
             >
-              {
-                allReportType.includes(reportType) ? "Already report added" :" Add Report"
-              }
+              {allReportType.includes(reportType)
+                ? "Already report added"
+                : " Add Report"}
             </button>
           </div>
         </form>
