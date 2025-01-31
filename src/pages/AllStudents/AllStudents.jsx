@@ -81,7 +81,7 @@ const AllStudents = () => {
       const matchesSearchQuery =
         student.fullName?.toLowerCase().includes(query) ||
         student.fatherName?.toLowerCase().includes(query) ||
-        student.roll?.toString().includes(query);
+        student.rollNumber?.toString().includes(query);
 
       const matchesClass =
         !selectedClass || student.class?.toLowerCase().includes(selectedClass);
