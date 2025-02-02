@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useReactToPrint } from "react-to-print";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const ViewCertificate = () => {
+const SingleCertificate = ({ id }) => {
   // State to store fetched student report and student data
   // State variables
   const [studentReport, setStudentReport] = useState([]); // Store student report
@@ -12,12 +10,6 @@ const ViewCertificate = () => {
   const [loading, setLoading] = useState(false); // Loading state
   const [halfYearReport, setHalfYearReport] = useState({}); // Half-yearly report
   const [annualReport, setAnnualReport] = useState({}); // Annual report
-
-  // Accessing the `id` parameter from the URL
-  const { id } = useParams();
-
-  // Ref for printing the component
-  const componentRef = useRef();
 
   // Fetch data when the component loads
   useEffect(() => {
@@ -57,12 +49,6 @@ const ViewCertificate = () => {
 
   const annualValue = Object.values(annualReport);
   const annualEntris = Object.entries(annualReport);
-
-  // Setup for printing the certificate
-  const handlePrint = useReactToPrint({
-    documentTitle: `${student?.fullName}'s Certificate`,
-    contentRef: componentRef,
-  });
 
   // Subjects to display
   const allHeading = [
@@ -139,11 +125,8 @@ const ViewCertificate = () => {
   return (
     <div className="flex flex-col justify-center items-center p-4 md:p-8 bg-gray-50 min-h-screen">
       {/* Printable certificate content */}
-      <div
-        ref={componentRef}
-        className="flex flex-col w-full max-w-5xl bg-white shadow-lg rounded-lg p-4 md:p-8"
-      >
-        <div className="border border-base p-4 md:p-8">
+      <div className="flex flex-col w-full max-w-5xl bg-white  p-4 md:p-8">
+        <div className=" p-4 md:p-8">
           {/* Header section */}
           <h1 className="text-base md:text-lg font-bold text-center">
             <div className="mb-3">
@@ -151,9 +134,7 @@ const ViewCertificate = () => {
                 প্রগতি পত্র
               </span>
             </div>
-            <span className="text-xl md:text-3xl">
-              নতিডাঙ্গা পিস ইসলামিক স্কুল
-            </span>
+            <span className="text-5xl">নতিডাঙ্গা পিস ইসলামিক স্কুল</span>
           </h1>
           <div className="text-center mb-3 text-sm md:text-base">
             <p>সাং ও পোস্ট - হতিডাঙ্গা * থানা - ধানারপাড়া * জেলা - নদীয়া</p>
@@ -210,9 +191,7 @@ const ViewCertificate = () => {
                       </td>
                       {halfValue.map((value, i) => (
                         <td key={i} className="border border-black px-2 py-4">
-                          {isNaN(parseFloat(value))
-                            ? "Not Attend"
-                            : value}
+                          {isNaN(parseFloat(value)) ? "Not Attend" : value}
                         </td>
                       ))}
                       <td rowSpan={2} className="border border-black px-2 py-4">
@@ -441,18 +420,8 @@ const ViewCertificate = () => {
           </div>
         </div>
       </div>
-
-      {/* Print button */}
-      <div className="mt-4 mb-32">
-        <button
-          onClick={handlePrint}
-          className="px-4 py-2 text-white bg-primary hover:bg-white border border-primary hover:border-primary hover:text-primary transition duration-300"
-        >
-          Print Certificate
-        </button>
-      </div>
     </div>
   );
 };
 
-export default ViewCertificate;
+export default SingleCertificate;

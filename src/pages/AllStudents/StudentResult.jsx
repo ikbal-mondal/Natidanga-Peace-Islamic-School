@@ -52,7 +52,7 @@ const StudentResult = () => {
     } else {
       toast.error("Marks should be between 0 and 50");
     }
-    // setResults((prev) => ({ ...prev, [subject]: e.target.value }));
+   
   };
 
   // Handle report submission
