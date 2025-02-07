@@ -12,6 +12,7 @@ import AllCertificates from "../pages/AllCertificates/AllCertificates";
 import SingleStudent from "../pages/AllStudents/SingleStudent";
 import StudentResult from "../pages/AllStudents/StudentResult";
 import ViewCertificate from './../pages/AllCertificates/ViewCertificate';
+import SchoolOrganizers from "../pages/SchoolOrganizers/SchoolOrganizers";
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ export const router = createBrowserRouter([
         path: "/dashboard/all-certificates",
         element: <AllCertificates />,
       },
+      {
+        path: "/dashboard/school-organizers",
+        element: <SchoolOrganizers/>
+      }
       
     ],
   },
