@@ -10,6 +10,7 @@ import { GrCertificate } from "react-icons/gr";
 
 import { TbHomeUp } from "react-icons/tb";
 import { BiLogOut } from "react-icons/bi";
+import { MdOutlineManageAccounts } from "react-icons/md";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -124,6 +125,20 @@ const DashboardLayout = () => {
                 >
                   <GrCertificate className="text-lg" />
                   <span>All Certificates</span>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/dashboard/school-organizers"
+                  className={`flex items-center space-x-2 p-2 rounded-md ${
+                    isActive("/dashboard/school-organizers")
+                      ? "bg-white text-gray-800"
+                      : "hover:bg-white hover:text-gray-800"
+                  }`}
+                >
+                  <MdOutlineManageAccounts className="text-lg" />
+                  <span>School Organizers</span>
                 </Link>
               </li>
 
