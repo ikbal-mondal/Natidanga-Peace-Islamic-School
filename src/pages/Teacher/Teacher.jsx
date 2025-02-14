@@ -117,20 +117,19 @@ const Teacher = () => {
       <div className="flex justify-start md:justify-end mb-4">
         <button
           onClick={() => setShowModal(true)}
-          className="bg-primary text-white py-2 px-4 rounded shadow hover:bg-primary flex items-center gap-2"
+          className="bg-sky-600 hover:bg-primary transition duration-100 ease-in-out text-white py-2 px-4 rounded shadow flex items-center gap-2"
         >
           <FaPlus className="text-white" /> Add Teacher
         </button>
       </div>
 
       {/* Heading for Teacher Table */}
-      
+
       <h2 className="relative text-xl md:text-2xl font-bold text-gray-800 mb-4 group inline-block">
         Teacher List
         {/* Border for hover animation */}
         <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gray-800 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
       </h2>
-     
 
       {/* Teacher Table */}
       <div className="overflow-x-auto">
