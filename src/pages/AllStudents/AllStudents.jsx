@@ -4,6 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { Link } from "react-router-dom";
+import StudentMonthCalculator from "./StudentMonthCalculator";
 
 const AllStudents = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -192,7 +193,7 @@ const AllStudents = () => {
                     <td className="p-4">{student.fullName}</td>
                     <td className="p-4">{student.class}</td>
                     <td className="p-4">{student.rollNumber ?? "N/A"}</td>
-                    <td className="p-4">{student.dues ?? "N/A"}</td>
+                    <td className="p-4">{<StudentMonthCalculator studentInfo={student}/>}</td>
                     <td className="p-4 text-right flex justify-end gap-2">
                       <Link
                         to={`/dashboard/all-students/${student._id}`}
